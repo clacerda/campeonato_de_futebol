@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common'; 
+import { Module } from '@nestjs/common';
 import { JogadoresController } from './jogadores/jogadores.controller';
 import { JogadoresModule } from './jogadores/jogadores.module';
 
 @Module({
-  imports: [JogadoresModule, JogadoresModule],
+  imports: [JogadoresModule],
   controllers: [JogadoresController],
   providers: [],
 })
