@@ -5,6 +5,5 @@ import { JogadoresModule } from './jogadores/jogadores.module';
 @Module({
   imports: [JogadoresModule],
   controllers: [JogadoresController],
-  providers: [],
 })
 export class AppModule {}

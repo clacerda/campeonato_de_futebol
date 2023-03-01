@@ -11,8 +11,8 @@ export class JogadoresService {
 
     async criarAtualizarJogador(criaJogadorDto: CriarJogadorDto): Promise<void>{
 
-      this.logger.log(`Cria jogadorDTO: ${criaJogadorDto}`);
-      await this.criar(criaJogadorDto);
+      
+      this.criar(criaJogadorDto);
 
     }
 
@@ -30,6 +30,7 @@ export class JogadoresService {
         urlFotoJogador: 'www.google.com.br/foto'
       };
 
+      this.logger.log(`Cria jogadorDTO: ${JSON.stringify(jogador)}`);
       this.jogadores.push(jogador);
 
     }
