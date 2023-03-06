@@ -8,3 +8,4 @@ import { JogadoresService } from './jogadores.service';
   exports: [JogadoresService],
 })
 export class JogadoresModule {}
+ 
