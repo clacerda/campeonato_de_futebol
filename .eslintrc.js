@@ -24,6 +24,9 @@ module.exports = {
   },
   "extends": [
     "plugin:prettier/recommended"
-],
+  ],
+  "dependencies": {
+    "prettier": "npm:wp-prettier@2.6.2"
+}
 
 };
