@@ -7,7 +7,6 @@ import { MongooseModule } from '@nestjs/mongoose';
   imports: [
     MongooseModule.forRoot('mongodb+srv://admin:CIWtDXQkmhp1oGBm@cluster0.bwloubc.mongodb.net/smartTraking?retryWrites=true&w=majority', 
     { useNewUrlParser: true, 
-
       useUnifiedTopology: true  }),
     JogadoresModule],
   controllers: [JogadoresController],
