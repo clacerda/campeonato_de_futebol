@@ -21,7 +21,7 @@ export class JogadoresService {
       const jogadorEncontrado  = await this.jogadorModel.findOne({email}).exec();
 
       if (jogadorEncontrado) {
-        this.atualizar(jogadorEncontrado, criaJogadorDto);
+        this.atualizar(criaJogadorDto);
       } else{
         this.criar(criaJogadorDto);
       }       
@@ -29,8 +29,8 @@ export class JogadoresService {
 
     async deletarJogador(email): Promise<void>{
 
-      const jogadorEncontrado =  this.jogadores.find(jogador => jogador.email === email);
-      this.jogadores = this.jogadores.filter(jogador => jogador.email !== jogadorEncontrado.email);
+      // const jogadorEncontrado =  this.jogadores.find(jogador => jogador.email === email);
+      // this.jogadores = this.jogadores.filter(jogador => jogador.email !== jogadorEncontrado.email);
 
     }
 
@@ -42,12 +42,13 @@ export class JogadoresService {
         throw new NotFoundException(`Jogador com email ${email} não foi encontrado.`)
       }
 
-
       return jogadorEncontrado;
     }
 
     async consultarTodosJogadores(): Promise<Jogador[]>{
-      return await this.jogadores;
+      
+      return await this.jogadorModel.find().exec();
+      
     }
 
     private async criar(criaJogadorDto: CriarJogadorDto): Promise<Jogador> {
@@ -55,14 +56,13 @@ export class JogadoresService {
       const jogadorCriado = new this.jogadorModel(criaJogadorDto);
 
       return await jogadorCriado.save();
- 
 
     }
 
-    private async atualizar(jogadorEncontrado: Jogador, criaJogadorDto: CriarJogadorDto): Promise<Jogador>{
+    private async atualizar(criaJogadorDto: CriarJogadorDto): Promise<Jogador>{
+
         // Ref: Realiza o update de acordo com o email.
         return await this.jogadorModel.findOneAndUpdate({email: criaJogadorDto.email}, {$set: criaJogadorDto}).exec();
- 
     }
     
 }
