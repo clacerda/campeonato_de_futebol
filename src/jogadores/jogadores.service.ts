@@ -2,17 +2,23 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CriarJogadorDto } from './dtos/criar-jogador.dto';
 import { Jogador } from './interfaces/jogador.interface';
 import {v4 as uuidv4} from 'uuid';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class JogadoresService {
 
     private jogadores: Jogador[] = [];
+
+    constructor(@InjectModel('Jogador') private readonly jogadorModel: Model<Jogador>) {};  
+
     private readonly logger = new Logger(JogadoresService.name);
 
     async criarAtualizarJogador(criaJogadorDto: CriarJogadorDto): Promise<void>{
-
-      const {email} = criaJogadorDto;
-      const jogadorEncontrado = this.jogadores.find(jogador => jogador.email === email);
+      // Ref: Desestruturação do email recebido
+      const {email} = criaJogadorDto;   
+      // Ref: Procure jogador pelo email
+      const jogadorEncontrado  = await this.jogadorModel.findOne({email}).exec();
 
       if (jogadorEncontrado) {
         this.atualizar(jogadorEncontrado, criaJogadorDto);
@@ -44,29 +50,19 @@ export class JogadoresService {
       return await this.jogadores;
     }
 
-    private criar(criaJogadorDto: CriarJogadorDto): void {
+    private async criar(criaJogadorDto: CriarJogadorDto): Promise<Jogador> {
+      // Ref: Cria um novo jogador.
+      const jogadorCriado = new this.jogadorModel(criaJogadorDto);
 
-      const { nome, telefoneCelular, email} = criaJogadorDto;
-      
-      const jogador: Jogador = {
-        _id: uuidv4(),
-        nome,
-        telefoneCelular,
-        email,
-        ranking: 'A',
-        posicaoRanking: 1,
-        urlFotoJogador: 'www.google.com.br/foto'
-      };
-
-      this.logger.log(`Cria jogadorDTO: ${JSON.stringify(jogador)}`);
-      this.jogadores.push(jogador);
+      return await jogadorCriado.save();
+ 
 
     }
 
-    private atualizar(jogadorEncontrado: Jogador, criaJogadorDto: CriarJogadorDto): void{
-        const {nome} = criaJogadorDto;
-
-        jogadorEncontrado.nome = nome;
+    private async atualizar(jogadorEncontrado: Jogador, criaJogadorDto: CriarJogadorDto): Promise<Jogador>{
+        // Ref: Realiza o update de acordo com o email.
+        return await this.jogadorModel.findOneAndUpdate({email: criaJogadorDto.email}, {$set: criaJogadorDto}).exec();
+ 
     }
     
 }
