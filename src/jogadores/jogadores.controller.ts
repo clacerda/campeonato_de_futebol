@@ -2,7 +2,8 @@ import { Controller, Post, Body, Get, Query, Delete, UsePipes, ValidationPipe } 
 import { get } from 'http';
 import { CriarJogadorDto } from './dtos/criar-jogador.dto';
 import { Jogador } from './interfaces/jogador.interface';
-import { JogadoresService } from './jogadores.service'; 
+import { JogadoresService } from './jogadores.service';
+import { jogadoresValidacaoParametrosPipe } from './pipes/jogadores-validacao-parametros.pipe';
 
 @Controller('api/v1/jogadores')
 export class JogadoresController {
@@ -19,7 +20,7 @@ export class JogadoresController {
     }
     @Get()
     async consultarJogadores(
-      @Query('email') email: string
+      @Query('email', jogadoresValidacaoParametrosPipe) email: string
     ) : Promise<Jogador[] | Jogador>{
         
       if (email) {
@@ -31,7 +32,7 @@ export class JogadoresController {
 
     @Delete()
     async deletarJogador(
-      @Query('email') email: string ) : Promise<void> {
+      @Query('email', jogadoresValidacaoParametrosPipe) email: string ) : Promise<void> {
         this.jogadoresService.deletarJogador(email);
       }
 
