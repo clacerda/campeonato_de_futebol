@@ -24,7 +24,7 @@ export class JogadoresController {
     async atualizarJogador(
       @Body() criaJogadorDto: CriarJogadorDto, @Param('_id', jogadoresValidacaoParametrosPipe) _id: string): Promise<void> {
          
-        this.jogadoresService.atualizarJogador(criaJogadorDto);
+        this.jogadoresService.atualizarJogador(_id, criaJogadorDto);
 
     }
 
