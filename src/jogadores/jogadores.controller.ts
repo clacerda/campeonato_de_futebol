@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
 import { get } from 'http';
 import { CriarJogadorDto } from './dtos/criar-jogador.dto';
 import { Jogador } from './interfaces/jogador.interface';
@@ -9,7 +9,8 @@ export class JogadoresController {
 
     constructor(private readonly jogadoresService: JogadoresService) {}
     
-    @Post()
+    @Post() 
+    @UsePipes(ValidationPipe)
     async criarAtualizarJogador(
         @Body() criaJogadorDto: CriarJogadorDto ){
          
