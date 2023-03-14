@@ -50,18 +50,24 @@ export class JogadoresService {
     }
 
 
-    async deletarJogador(email): Promise<any>{
+    async deletarJogador(_id): Promise<any>{
 
-      return await this.jogadorModel.findOneAndRemove({email}).exec();
+      const jogadorEncontrado = await this.jogadorModel.findOne({_id}).exec();
+
+      if (!jogadorEncontrado) {
+        throw new NotFoundException(`Jogador com email ${_id} não foi encontrado.`)
+      }
+
+      return await this.jogadorModel.findOneAndRemove({_id}).exec();
 
     }
 
-    async consultarJogadoresPorEmail(email: string): Promise<Jogador> {
+    async consultarJogadoresPeloId(_id: string): Promise<Jogador> {
       
-      const jogadorEncontrado = await this.jogadorModel.findOne({email}).exec();
+      const jogadorEncontrado = await this.jogadorModel.findOne({_id}).exec();
 
       if (!jogadorEncontrado) {
-        throw new NotFoundException(`Jogador com email ${email} não foi encontrado.`)
+        throw new NotFoundException(`Jogador com email ${_id} não foi encontrado.`)
       }
 
       return jogadorEncontrado;
