@@ -1,9 +1,11 @@
 import { Injectable, Logger, NotFoundException, BadRequestException } from '@nestjs/common';
 import { CriarJogadorDto } from './dtos/criar-jogador.dto';
+import { AtualizarJogadorDto } from './dtos/atualizar-jogador.dto';
 import { Jogador } from './interfaces/jogador.interface';
 import {v4 as uuidv4} from 'uuid';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+
 
 @Injectable()
 export class JogadoresService {
@@ -34,7 +36,7 @@ export class JogadoresService {
     }
 
 
-    async atualizarJogador(_id: string, criarJogadorDto: CriarJogadorDto): Promise<void>{
+    async atualizarJogador(_id: string, atualizarJogadorDto: AtualizarJogadorDto): Promise<void>{
       
 
       // Ref: Procure jogador pelo email
@@ -44,7 +46,7 @@ export class JogadoresService {
         throw new NotFoundException(`Jogador com id:${_id} - não foi encontrado`);
       }      
 
-      await this.jogadorModel.findOneAndUpdate({_id}, {$set: criarJogadorDto}).exec();
+      await this.jogadorModel.findOneAndUpdate({_id}, {$set: atualizarJogadorDto}).exec();
 
 
     }
