@@ -8,7 +8,6 @@ export interface Categoria extends Document {
   eventos:Array<Evento>
   jogadores: Array<Jogador>;
 
-
 };
 
 
