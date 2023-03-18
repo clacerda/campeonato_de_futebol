@@ -55,4 +55,16 @@ export class CategoriasService {
       
     }
 
+    async atribuirCategoriaJogador(params: string[]): Promise<void>{
+
+      const categoria = params['categoria'];
+      const jogador = params['idJogador'];
+
+      const categoriaEncontrada = await this.categoriaModel.findOne({categoria}).exec();
+      //const jogadorCadastrado = await this.jogadorModel.
+
+      
+
+    }
+
 }
