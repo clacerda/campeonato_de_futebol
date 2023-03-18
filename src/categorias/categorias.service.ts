@@ -8,8 +8,7 @@ import { CriarCategoriaDto } from './dtos/criar-categoria.dto';
 export class CategoriasService {
 
     constructor(
-      @InjectModel('Categoria') private readonly categoriaModel: Model<Categoria>
-    ) {}
+      @InjectModel('Categoria') private readonly categoriaModel: Model<Categoria>) {}
 
 
     async criarCategoria(criarCategoriaDto: CriarCategoriaDto): Promise<Categoria> {
