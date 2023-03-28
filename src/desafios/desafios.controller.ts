@@ -1,10 +1,10 @@
 import { Controller, Post, UsePipes, ValidationPipe, Body, Get, Query, Put, Param, Delete, Logger } from '@nestjs/common';
 import { DesafiosService } from './desafios.service'
-import { CriarDesafioDto } from './dtos/criar-desafio.dto'
+import { CriarDesafioDto } from '../desafios/dto/criar-desafio.dto'
 import { Desafio } from './interfaces/desafio.interface';
 import { DesafioStatusValidacaoPipe } from './pipes/desafio-status-validation.pipe';
-import { AtribuirDesafioPartidaDto } from './dtos/atribuir-desafio-partida.dto';
-import { AtualizarDesafioDto } from './dtos/atualizar-desafio.dto';
+import { AtribuirDesafioPartidaDto } from '../desafios/dto/atribuir-desafio-partida.dto';
+import { AtualizarDesafioDto } from '../desafios/dto/atualizar-desafio.dto';
 
 /*
 Desafio

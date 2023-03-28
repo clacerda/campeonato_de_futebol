@@ -2,10 +2,10 @@ import { Injectable, NotFoundException, BadRequestException, Logger, InternalSer
 import { InjectModel } from '@nestjs/mongoose';
 import { Desafio, Partida } from './interfaces/desafio.interface';
 import { Model } from 'mongoose';
-import { CriarDesafioDto } from './dtos/criar-desafio.dto';
+import { CriarDesafioDto } from '../desafios/dto/criar-desafio.dto'
 import { JogadoresService } from 'src/jogadores/jogadores.service';
-import { AtualizarDesafioDto } from './dtos/atualizar-desafio.dto';
-import { AtribuirDesafioPartidaDto } from './dtos/atribuir-desafio-partida.dto';
+import { AtualizarDesafioDto } from '../desafios/dto/atualizar-desafio.dto';
+import { AtribuirDesafioPartidaDto } from '../desafios/dto/atribuir-desafio-partida.dto';
 import { DesafioStatus } from './interfaces/desafio-status.enum';
 import { CategoriasService } from 'src/categorias/categorias.service';
 
@@ -203,5 +203,7 @@ export class DesafiosService {
        await this.desafioModel.findOneAndUpdate({_id},{$set: desafioEncontrado}).exec() 
 
     }
+
+    
 
 }
